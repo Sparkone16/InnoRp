@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^9.0.0",
+    "winston": "^3.18.3"
+  },
+  "name": "innorp2",
+  "version": "0.1.0",
+  "description": "ERP for our society",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sparkone16/InnoRp.git"
+  },
+  "keywords": [
+    "ERP"
+  ],
+  "author": "SparkOne, Nainda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sparkone16/InnoRp/issues"
+  },
+  "homepage": "https://github.com/Sparkone16/InnoRp#readme"
+}
