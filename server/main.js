@@ -10,8 +10,9 @@ dotenv.config();
 import express from 'express';
 const app = express();
 import winston from 'winston';
-import crypto from 'crypto';
 const authRoutes = require('./routes/authRoutes');
+const clientRoutes = require('./routes/clientRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 
 // Mongo connection
 const {
@@ -73,3 +74,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/clients', clientRoutes);
+app.use('/api/invoices', invoiceRoutes);
