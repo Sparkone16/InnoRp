@@ -1,0 +1,20 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_NAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    ports:
+      - "${MONGO_PORT}:27017"
+
+  api:
+    build: .
+    ports:
+      - "${API_PORT}:3000"
+    depends_on:
+      - mongo
+    env_file:
+      - .env  # Ceci chargera TOUTES les variables du .env automatiquement
+    environment:
+      - MONGO_HOST=mongo # On force 'mongo' pour le réseau interne

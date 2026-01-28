@@ -1,1 +1,11 @@
-/node_modules/
+# .gitignore
+# FIle that contains all file and folder that not must be on GitHub
+
+# Excluding package to keep some space on the repository
+node_modules/
+
+# Excluding file that contain all of our environnement variable
+.env
+
+# Excluding var files like a log file
+var/
