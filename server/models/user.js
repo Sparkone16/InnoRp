@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const app = express();
-import winston from 'winston';
-import crypto from 'crypto';
 
 const UserSchema = new mongoose.Schema({
     // 1. Identité & Login
@@ -92,4 +90,4 @@ UserSchema.pre('save', async function(next) {
     next();
 });
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

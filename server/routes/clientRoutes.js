@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const clientController = require('../controllers/clientController'); // On importe ta fonction
-const { protect } = require('../middleware/auth');
+import { createClient } from '../controllers/clientController.js'; // Note les accolades {} et le .js
+import { protect, authorize } from '../middleware/auth.js';
 
 router.use(protect);
-router.post('/', clientController.createClient)
-module.exports = router;
+router.post('/', createClient);
+
+export default router;

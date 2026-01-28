@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ClientSchema = new mongoose.Schema({
     // 1. Le type de client (La clé de voûte)
@@ -69,4 +69,4 @@ ClientSchema.virtual('displayName').get(function() {
     return this.name; // ex: "TechCorp SAS"
 });
 
-module.exports = mongoose.model('Client', ClientSchema);
+export default mongoose.model('Client', ClientSchema);

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Counter = require('./Counter');
+import mongoose from 'mongoose';
+import Counter from'./Counter.js';
 
 // Sous-schéma pour les lignes de facture (ex: "Développement Backend - 5 jours")
 const InvoiceItemSchema = new mongoose.Schema({
@@ -145,4 +145,4 @@ InvoiceSchema.pre('save', async function(next) {
     }
 });
 
-module.exports = mongoose.model('Invoice', InvoiceSchema);
+export default mongoose.model('Invoice', InvoiceSchema);

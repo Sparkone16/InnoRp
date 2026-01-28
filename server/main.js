@@ -10,9 +10,9 @@ dotenv.config();
 import express from 'express';
 const app = express();
 import winston from 'winston';
-const authRoutes = require('./routes/authRoutes');
-const clientRoutes = require('./routes/clientRoutes');
-const invoiceRoutes = require('./routes/invoiceRoutes');
+import authRoutes from './routes/authRoutes.js';
+import clientRoutes from './routes/clientRoutes.js';
+import invoiceRoutes from './routes/invoiceRoutes.js';
 
 // Mongo connection
 const {

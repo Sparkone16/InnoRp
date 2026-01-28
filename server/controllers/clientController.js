@@ -1,9 +1,9 @@
-const Client = require('../models/Client');
+import Client from '../models/Client.js';
 
 // @desc    Créer un nouveau client
 // @route   POST /api/clients
 // @access  Private (Connecté)
-exports.createClient = async (req, res) => {
+export const createClient = async (req, res) => {
     try {
         // 1. On récupère les données du corps de la requête
         // Mongoose fera le tri (type, siret, nom, etc.)

@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const authController = require('../controllers/authController'); // On importe ta fonction
-const { protect } = require('../middleware/auth');
+import { createInvoice } from '../controllers/invoiceController.js'; // Note les accolades {} et le .js
+import { protect, authorize } from '../middleware/auth.js';
 
 // Toutes les routes factures nécessitent d'être connecté
 router.use(protect);
 
-router.post('/', invoiceController.createInvoice);
+router.post('/', createInvoice);
 // Plus tard : router.get('/:id', invoiceController.getInvoiceById);
 
-module.exports = router;
+export default router;

@@ -1,10 +1,10 @@
-const Invoice = require('../models/Invoice');
-const Client = require('../models/Client');
+import Invoice from '../models/Invoice.js';
+import Client from '../models/Client.js';
 
 // @desc    Créer une nouvelle facture
 // @route   POST /api/invoices
 // @access  Private (Connecté)
-exports.createInvoice = async (req, res) => {
+export const createInvoice = async (req, res) => {
     try {
         const { clientId, items, dueAt, notes, paymentConditions } = req.body;
 

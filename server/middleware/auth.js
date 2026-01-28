@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
 // 1. Protéger les routes (Vérifier si connecté)
-exports.protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
     let token;
 
     // On vérifie si le header "Authorization" est présent et commence par "Bearer"
@@ -32,7 +32,7 @@ exports.protect = async (req, res, next) => {
 };
 
 // 2. Gérer les Rôles (ex: Admin seulement)
-exports.authorize = (...roles) => {
+export const authorize = (...roles) => {
     return (req, res, next) => {
         // req.user est disponible car 'protect' a tourné juste avant !
         if (!roles.includes(req.user.role)) {

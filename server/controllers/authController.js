@@ -1,5 +1,5 @@
-const User = require('../models/User'); // Ton modèle Mongoose précédent
-const jwt = require('jsonwebtoken');
+import User from '../models/User.js'; // Ton modèle Mongoose précédent
+import jwt from 'jsonwebtoken';
 
 // Fonction utilitaire pour générer le Token
 const generateToken = (id, role) => {
@@ -10,7 +10,7 @@ const generateToken = (id, role) => {
     });
 };
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -83,7 +83,7 @@ exports.login = async (req, res) => {
     }
 };
 
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const { firstname, lastname, email, password, role } = req.body;
 
