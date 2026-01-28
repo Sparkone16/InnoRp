@@ -1,6 +1,27 @@
 import Client from '../models/Client.js';
 import { HTTP_CODE } from '../main.js';
 import { log } from '../main.js';
+
+// @desc    Récupérer tous les clients
+// @route   GET /api/clients
+// @access  Private
+export const getAllClients = async (req, res) => {
+    try {
+        // On récupère tous les clients actifs, triés par date de création (le plus récent en haut)
+        const clients = await Client.find({ isActive: true }).sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            count: clients.length,
+            data: clients
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Erreur lors de la récupération des clients." });
+    }
+};
+
 // @desc    Créer un nouveau client
 // @route   POST /api/clients
 // @access  Private (Connecté)
