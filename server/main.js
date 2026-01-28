@@ -21,6 +21,18 @@ const {
   MONGO_PORT
 } = process.env;
 
+const HTTP_CODE = {
+  OK: 200,
+  CREATED: 201,
+  SEE_OTHER: 303,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  TOO_MANY_REQUESTS: 429,
+  METHOD_NOT_ALLOWED: 405,
+  SERVER_ERROR: 500,
+}
 
 // Create the Logger configuration
 const log = winston.createLogger({
@@ -50,18 +62,6 @@ const connectWithRetry = () => {
 };
 connectWithRetry();
 
-const HTTP_CODE = {
-  OK: 200,
-  CREATED: 201,
-  SEE_OTHER: 303,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  NOT_FOUND: 404,
-  CONFLICT: 409,
-  TOO_MANY_REQUESTS: 429,
-  METHOD_NOT_ALLOWED: 405,
-  SERVER_ERROR: 500,
-}
 
 // Uses to express app
 app.listen(process.env.API_PORT, () => {

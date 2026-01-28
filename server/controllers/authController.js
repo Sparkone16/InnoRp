@@ -61,7 +61,7 @@ exports.login = async (req, res) => {
         await user.save({ validateBeforeSave: false }); 
 
         // 7. Envoi de la réponse au client (Mobile/Web/Desktop)
-        res.status(200).json({
+        res.status(HTTP_CODE.OK).json({
             success: true,
             token: token, // Le précieux sésame à stocker côté client
             user: {
@@ -75,10 +75,51 @@ exports.login = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ 
+        log.error(error);
+        res.status(HTTP_CODE.SERVER_ERROR).json({ 
             success: false, 
             message: "Erreur serveur lors de la connexion." 
         });
+    }
+};
+
+exports.register = async (req, res) => {
+    try {
+        const { firstname, lastname, email, password, role } = req.body;
+
+        // 1. Vérifier si l'utilisateur existe déjà
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(HTTP_CODE.CONFLICT).json({ success: false, message: "Cet email est déjà utilisé." });
+        }
+
+        // 2. Créer l'utilisateur
+        // Pas besoin de hasher le mot de passe ici, le middleware 'pre save' 
+        // dans ton modèle User.js le fera automatiquement !
+        const user = await User.create({
+            firstname,
+            lastname,
+            email,
+            password,
+            role // Attention : Assure-toi de sécuriser qui a le droit de définir le rôle
+        });
+
+        // 3. Générer le token tout de suite (pour qu'il soit connecté direct)
+        const token = generateToken(user._id, user.role); 
+
+        res.status(HTTP_CODE.CREATED).json({
+            success: true,
+            token,
+            user: {
+                id: user._id,
+                firstname: user.firstname,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(HTTP_CODE.SERVER_ERROR).json({ success: false, message: "Erreur lors de l'inscription." });
     }
 };
