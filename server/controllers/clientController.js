@@ -1,5 +1,6 @@
 import Client from '../models/Client.js';
-
+import { HTTP_CODE } from '../main.js';
+import { log } from '../main.js';
 // @desc    Créer un nouveau client
 // @route   POST /api/clients
 // @access  Private (Connecté)

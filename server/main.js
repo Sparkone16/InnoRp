@@ -22,7 +22,7 @@ const {
   MONGO_PORT
 } = process.env;
 
-const HTTP_CODE = {
+export const HTTP_CODE = {
   OK: 200,
   CREATED: 201,
   SEE_OTHER: 303,
@@ -36,7 +36,7 @@ const HTTP_CODE = {
 }
 
 // Create the Logger configuration
-const log = winston.createLogger({
+export const log = winston.createLogger({
   level: process.env.LOGGER_STATE,
   format: winston.format.combine(
     winston.format.timestamp(),
@@ -63,6 +63,7 @@ const connectWithRetry = () => {
 };
 connectWithRetry();
 
+app.use(express.json());
 
 // Uses to express app
 app.listen(process.env.API_PORT, () => {

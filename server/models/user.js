@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import bcrypt from 'bcrypt';
 const app = express();
 
 const UserSchema = new mongoose.Schema({
@@ -76,18 +77,25 @@ UserSchema.virtual('fullName').get(function() {
 });
 
 // --- MIDDLEWARES (HOOKS) ---
-
+UserSchema.methods.matchPassword = async function(enteredPassword) {
+    // 'this.password' est le hash stocké en base
+    // 'enteredPassword' est le hash SHA-256 envoyé par ton site
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 // 1. Hachage du mot de passe avant la sauvegarde
-UserSchema.pre('save', async function(next) {
-    // Si le mot de passe n'a pas été modifié, on passe (évite de le rehacher)
+UserSchema.pre('save', async function() {
+    
+    // Si le mot de passe n'a pas été modifié, on arrête la fonction ici (équivalent à next())
     if (!this.isModified('password')) {
-        return next();
+        return; 
     }
 
     // Génération du sel et hachage
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
+    
+    // On ne met PAS de next() à la fin.
+    // Le fait que la fonction async se termine indique à Mongoose que c'est fini.
 });
 
 export default mongoose.model('User', UserSchema);

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { HTTP_CODE } from '../main.js';
 
 // 1. Protéger les routes (Vérifier si connecté)
 export const protect = async (req, res, next) => {

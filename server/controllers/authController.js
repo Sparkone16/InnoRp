@@ -1,5 +1,7 @@
 import User from '../models/User.js'; // Ton modèle Mongoose précédent
 import jwt from 'jsonwebtoken';
+import { HTTP_CODE } from '../main.js';
+import { log } from '../main.js';
 
 // Fonction utilitaire pour générer le Token
 const generateToken = (id, role) => {
@@ -21,6 +23,9 @@ export const login = async (req, res) => {
                 message: "Veuillez fournir un email et un mot de passe." 
             });
         }
+        // console.log("---------------- LOGIN ATTEMPT ----------------");
+        // console.log("Email reçu:", email);
+        // console.log("Password reçu (doit être un Hash long):", password);
 
         // 2. Recherche de l'utilisateur
         // IMPORTANT : On doit ajouter .select('+password') car par défaut 
