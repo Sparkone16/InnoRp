@@ -74,6 +74,12 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: "Hello World" });
 });
 
+app.use((req, res, next) => {
+    console.log(`📡 [${new Date().toLocaleTimeString()}] ${req.method} / ${req.url}`);
+    console.log(req.body);
+    next(); // Laisse passer la requête
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/invoices', invoiceRoutes);

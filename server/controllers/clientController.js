@@ -92,37 +92,35 @@ export const createClient = async (req, res) => {
 
 /**
  * @desc    Supprimer un client
- * @route   POST /api/clients/:id
+ * @route   DELETE /api/clients/:id
  * @access  Private (Connecté)
  */
 export const deleteClient = async (req, res) => {
     try {
+        console.log("Tentative de suppression pour ID:", req.params.id);
 
-        const clientId = req.params.id || req.body.id;
-
-        const client = await Client.findById(clientId);
+        // On utilise findByIdAndUpdate qui est plus direct et robuste
+        const client = await Client.findByIdAndUpdate(
+            req.params.id, 
+            { isActive: false }, // On force la valeur
+            { new: true }        // On demande à récupérer l'objet modifié
+        );
 
         if (!client) {
-            return res.status(HTTP_CODE.NOT_FOUND).json({ 
-                success: false, 
-                message: "Client introuvable." 
-            });
+            console.log("Client introuvable !");
+            return res.status(HTTP_CODE.NOT_FOUND).json({ success: false, message: "Client introuvable." });
         }
-        client.isActive = false;
-    
 
-        await client.save();
+        console.log("Nouvel état du client:", client.isActive); // Doit afficher false
+
         res.status(HTTP_CODE.OK).json({ 
             success: true, 
             message: "Client désactivé avec succès." 
         });
 
     } catch (error) {
-        console.error(error);
-        res.status(HTTP_CODE.SERVER_ERROR).json({ 
-            success: false, 
-            message: "Erreur serveur lors de la suppression du client."
-        });
+        console.error("Erreur DELETE:", error);
+        res.status(HTTP_CODE.SERVER_ERROR).json({ success: false, message: "Erreur serveur." });
     }
 };
 
@@ -133,6 +131,9 @@ export const deleteClient = async (req, res) => {
  */
 export const updateClient = async (req, res) => {
     try {
+        console.log("----- DEBUG UPDATE -----");
+        console.log("ID reçu :", req.params.id);
+        console.log("Données reçues (Body) :", req.body);
         // req.params.id contient l'ID dans l'URL
         // req.body contient les nouvelles données
 
