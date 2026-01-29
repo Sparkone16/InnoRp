@@ -13,6 +13,7 @@ import winston from 'winston';
 import authRoutes from './routes/authRoutes.js';
 import clientRoutes from './routes/clientRoutes.js';
 import invoiceRoutes from './routes/invoiceRoutes.js';
+import profileRoute from './routes/profileRoute.js';
 
 // Mongo connection
 const {
@@ -83,3 +84,4 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/invoices', invoiceRoutes);
+app.use('/api/profiles', profileRoute);

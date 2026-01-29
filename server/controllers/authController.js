@@ -4,7 +4,7 @@ import { HTTP_CODE } from '../main.js';
 import { log } from '../main.js';
 
 // Fonction utilitaire pour générer le Token
-const generateToken = (id, role) => {
+export const generateToken = (id, role) => {
     // Le token contient l'ID et le Rôle.
     // Il expire dans 30 jours (adapter selon le besoin de sécurité vs confort)
     return jwt.sign({ id, role }, process.env.JWT_SECRET, {
