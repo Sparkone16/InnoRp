@@ -37,8 +37,33 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-
-    // 3. Gestion des Accès (RBAC)
+    // 3. Informations personnelles
+    phone: {
+        type: String,
+        required: true,
+    },
+    noSecu: {
+        type: String,
+        required: true,
+    },
+    rib: {
+        bankName: String,
+        iban: {
+            type: String,
+            default: null,
+        },
+        bic: {
+            type: String,
+            default: null,
+        }
+    },
+    address: {
+        street: { type: String, required: true },
+        city: { type: String, required: true },
+        zipCode: { type: String, required: true },
+        country: { type: String, default: 'France' }
+    },
+    // 4. Gestion des Accès (RBAC)
     role: {
         type: String,
         enum: ['admin', 'gestion', 'comptable', 'employe'],
@@ -49,7 +74,7 @@ const UserSchema = new mongoose.Schema({
         default: true // Par défaut, un utilisateur créé est actif
     },
 
-    // 4. Champs techniques & Mobile
+    // 5. Champs techniques & Mobile
     lastLoginAt: {
         type: Date,
         default: null
@@ -57,7 +82,7 @@ const UserSchema = new mongoose.Schema({
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 
-    // 5. Soft Delete (Ne jamais supprimer physiquement)
+    // 6. Soft Delete (Ne jamais supprimer physiquement)
     deletedAt: {
         type: Date,
         default: null
